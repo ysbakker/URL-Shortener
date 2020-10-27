@@ -3,6 +3,7 @@ module.exports = {
   env: {
     node: true,
   },
+  ignorePatterns: ['vue.config.js'],
   extends: [
     'plugin:prettier/recommended',
     'plugin:vue/essential',

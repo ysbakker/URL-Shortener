@@ -25,4 +25,8 @@ body,
   width: 100%;
   height: 100%;
 }
+
+.material-design-icon svg {
+  transform: translateY(2px);
+}
 </style>

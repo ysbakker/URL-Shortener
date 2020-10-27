@@ -8863,6 +8863,11 @@ vue-loader@^15.9.2:
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
 
+vue-material-design-icons@^4.10.0:
+  version "4.10.0"
+  resolved "https://registry.yarnpkg.com/vue-material-design-icons/-/vue-material-design-icons-4.10.0.tgz#4189a16bfcc7cc4f6b3417594b13a0b5719265a7"
+  integrity sha512-BakM+52NYsU9uW/rWvpHJvs+B7kaEaaH0CQGWmpz/PDTUduzVyajrE5/zc+vQltD5EJvtKQ4LCUgkoQOnrcyzg==
+
 vue-property-decorator@^8.4.2:
   version "8.5.1"
   resolved "https://registry.yarnpkg.com/vue-property-decorator/-/vue-property-decorator-8.5.1.tgz#571a91cf8d2b507f537d79bf8275af3184572fff"

@@ -1,7 +1,11 @@
 <template>
   <form @submit="handleSubmit">
     <div class="url-input-container" :class="{ focused: urlInputFocus }">
-      <button class="https" @click="$refs.url.focus()">
+      <button
+        class="secure-toggle"
+        :class="{ https: https, http: !https }"
+        @click="toggleHttps"
+      >
         {{ https ? 'https://' : 'http://' }}
       </button>
       <input
@@ -35,7 +39,11 @@ export default class UrlForm extends Vue {
 
   handleSubmit(e) {
     e.preventDefault()
-    console.log('hello there')
+  }
+
+  toggleHttps() {
+    this.$refs.url.focus()
+    this.https = !this.https
   }
 }
 </script>
@@ -43,6 +51,10 @@ export default class UrlForm extends Vue {
 <style lang="scss" scoped>
 @import '../style/_colors.scss';
 @import '../style/_breakpoints.scss';
+
+$bradius-sm: 4px;
+$bradius-md: 5px;
+$bradius-xl: 7px;
 
 form {
   display: flex;
@@ -55,6 +67,7 @@ form {
   @media screen and (min-width: $sm) {
     flex-direction: row;
     width: 80%;
+    max-width: 1400px;
     & > *:not(:last-child) {
       margin-bottom: 0;
     }
@@ -73,7 +86,7 @@ button {
     font-size: 1.5rem;
   }
   @media screen and (min-width: $xl) {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 }
 button {
@@ -85,9 +98,8 @@ button {
   input {
     flex-basis: 100%;
     height: 100%;
-    border-radius: 0 5px 5px 0;
+    border-radius: 0 $bradius-sm $bradius-sm 0;
     border-left: none;
-    font-style: italic;
     transition: border-color 0.2s;
     &:focus {
       outline: none;
@@ -96,12 +108,6 @@ button {
       border-radius: 0;
       border-right: none;
     }
-  }
-  button {
-    border-right: none;
-    border-radius: 5px 0 0 5px;
-    transition: border-color 0.2s;
-    background: $dark_lightblue;
   }
   &.focused {
     input,
@@ -118,7 +124,7 @@ button {
 }
 button.shorten {
   flex-basis: 100%;
-  border-radius: 5px;
+  border-radius: $bradius-sm;
   font-weight: bold;
   background: $dark_lightblue;
   transition: border-color 0.2s, background 0.2s;
@@ -137,7 +143,8 @@ button.shorten {
   }
   @media screen and (min-width: $sm) {
     flex-basis: unset;
-    border-radius: 0 5px 5px 0;
+    flex: 0 0 auto;
+    border-radius: 0 $bradius-sm $bradius-sm 0;
     padding-left: calc(0.5em + 4px);
     border-left: none;
     & > span::after {
@@ -149,16 +156,37 @@ button.shorten {
     }
   }
   @media screen and (min-width: $md) {
+    border-radius: 0 $bradius-md $bradius-md 0;
     svg {
-      width: 31px;
-      height: 31px;
+      width: 28px;
+      height: 28px;
     }
   }
   @media screen and (min-width: $xl) {
+    border-radius: 0 $bradius-xl $bradius-xl 0;
     svg {
-      width: 38px;
-      height: 38px;
+      width: 32px;
+      height: 32px;
     }
+  }
+}
+button.secure-toggle {
+  font-weight: bold;
+  border-right: none;
+  border-radius: $bradius-sm 0 0 $bradius-sm;
+  transition: border-color 0.2s;
+  background: $dark_lightblue;
+  &.https {
+    background: $dark_green;
+  }
+  &.http {
+    background: $dark_red;
+  }
+  @media screen and (min-width: $md) {
+    border-radius: $bradius-md 0 0 $bradius-md;
+  }
+  @media screen and (min-width: $xl) {
+    border-radius: $bradius-xl 0 0 $bradius-xl;
   }
 }
 </style>

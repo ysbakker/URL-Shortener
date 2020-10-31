@@ -22,6 +22,7 @@ export default class Home extends Vue {}
 
 <style lang="scss" scoped>
 @import '../style/_colors.scss';
+@import '../style/_breakpoints.scss';
 
 div.home-container {
   display: flex;
@@ -39,12 +40,21 @@ div.home-container {
 div.mast-text {
   text-transform: uppercase;
   h1 {
-    font-size: 4rem;
     color: $dark_textlight;
+    font-size: 3.5rem;
+    @media screen and (min-width: $md) {
+      font-size: 4rem;
+    }
+    @media screen and (min-width: $xl) {
+      font-size: 4.5rem;
+    }
   }
   h2 {
-    font-size: 1.4rem;
     color: $dark_text;
+    font-size: 1rem;
+    @media screen and (min-width: $md) {
+      font-size: 1.2rem;
+    }
   }
 }
 </style>

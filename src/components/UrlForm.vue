@@ -171,7 +171,6 @@ button.shorten {
   }
 }
 button.secure-toggle {
-  font-weight: bold;
   border-right: none;
   border-radius: $bradius-sm 0 0 $bradius-sm;
   transition: border-color 0.2s;

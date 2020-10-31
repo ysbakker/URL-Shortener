@@ -1,16 +1,21 @@
 <template>
   <form @submit="handleSubmit">
     <div class="url-input-container" :class="{ focused: urlInputFocus }">
+      <button class="https" @click="$refs.url.focus()">
+        {{ https ? 'https://' : 'http://' }}
+      </button>
       <input
         @focus="urlInputFocus = true"
         @blur="urlInputFocus = false"
+        size="1"
+        ref="url"
         name="url"
         v-model="url"
         type="text"
         autofocus
       />
     </div>
-    <button @click="handleSubmit">
+    <button class="shorten" @click="handleSubmit">
       <span><LinkPlus /></span>
     </button>
   </form>
@@ -24,6 +29,7 @@ import LinkPlus from 'icons/LinkPlus.vue'
   components: { LinkPlus },
 })
 export default class UrlForm extends Vue {
+  https = true
   urlInputFocus = false
   url = ''
 
@@ -70,36 +76,47 @@ button {
     font-size: 2rem;
   }
 }
+button {
+  cursor: pointer;
+}
 .url-input-container {
+  display: flex;
   flex-basis: 100%;
   input {
-    width: 100%;
+    flex-basis: 100%;
     height: 100%;
-    border-radius: 5px;
+    border-radius: 0 5px 5px 0;
+    border-left: none;
     font-style: italic;
     transition: border-color 0.2s;
     &:focus {
       outline: none;
     }
     @media screen and (min-width: $sm) {
-      border-radius: 5px 0 0 5px;
+      border-radius: 0;
       border-right: none;
     }
   }
+  button {
+    border-right: none;
+    border-radius: 5px 0 0 5px;
+    transition: border-color 0.2s;
+    background: $dark_lightblue;
+  }
   &.focused {
-    input {
+    input,
+    button {
       border-color: lighten($dark_lightblue, 10);
     }
     @media screen and (min-width: $sm) {
-      & ~ button {
+      & ~ button.shorten {
         border-color: lighten($dark_lightblue, 10);
         background: lighten($dark_lightblue, 10);
       }
     }
   }
 }
-button {
-  cursor: pointer;
+button.shorten {
   flex-basis: 100%;
   border-radius: 5px;
   font-weight: bold;
@@ -109,18 +126,26 @@ button {
     margin-left: 0.25em;
     content: 'Shorten';
   }
+  &:hover {
+    border-color: lighten($dark_lightblue, 10);
+    background: lighten($dark_lightblue, 10);
+  }
   svg {
     font-size: 0px;
     width: 20px;
     height: 20px;
   }
   @media screen and (min-width: $sm) {
-    flex-basis: 40px;
+    flex-basis: unset;
     border-radius: 0 5px 5px 0;
     padding-left: calc(0.5em + 4px);
     border-left: none;
     & > span::after {
       content: none;
+    }
+    &:hover {
+      border-color: $dark_lightblue;
+      background: $dark_lightblue;
     }
   }
   @media screen and (min-width: $md) {

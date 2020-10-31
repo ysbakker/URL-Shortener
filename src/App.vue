@@ -27,6 +27,6 @@ body,
 }
 
 .material-design-icon svg {
-  transform: translateY(2px);
+  transform: translateY(3px);
 }
 </style>

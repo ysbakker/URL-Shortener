@@ -6,6 +6,9 @@ module.exports = {
       'icons',
       path.resolve(__dirname, 'node_modules/vue-material-design-icons')
     )
+    if (process.env.NODE_ENV === 'development') {
+      config.plugins.delete('preload')
+    }
   },
   devServer: {
     port: 3000,

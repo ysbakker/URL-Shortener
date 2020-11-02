@@ -1,0 +1,22 @@
+service: url-shortener
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  memorySize: 128
+  region: eu-central-1
+  tracing:
+    lambda: true
+
+functions:
+  app:
+    handler: app/app.lambda
+    events:
+      - http:
+          path: /
+          method: ANY
+          cors: true
+      - http:
+          path: /{proxy+}
+          method: ANY
+          cors: true

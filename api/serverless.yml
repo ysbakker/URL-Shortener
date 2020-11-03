@@ -5,12 +5,14 @@ provider:
   stage: dev
   memorySize: 128
   region: eu-central-1
+  apiGateway:
+    shouldStartNameWithService: true
   tracing:
     lambda: true
 
 functions:
   app:
-    handler: app/app.lambda
+    handler: app.handler
     events:
       - http:
           path: /

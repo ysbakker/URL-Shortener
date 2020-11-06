@@ -1,17 +1,15 @@
 const express = require('express')
 const router = express.Router()
-const ogscraper = require('open-graph-scraper')
-const ogparser = require('../util/parse_og')
 const log = require('debug')('log')
-
-router.get('/', async (req, res) => {
-  res.json([{ slug: 'asdf', url: 'https://www.yorrick.dev' }])
-})
+const slugs = require('../model/slugs')
 
 router.get('/:slug', async (req, res, next) => {
-  const { url } = req.params
+  const { slug } = req.params
+  const result = await slugs.getSlugData(slug)
 
-  res.redirect(301, `https://${url}`)
+  if (!result) return res.status(404).send()
+
+  res.json(result.Item)
 })
 
 module.exports = router

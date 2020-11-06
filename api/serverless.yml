@@ -3,15 +3,15 @@ provider:
   name: aws
   runtime: nodejs12.x
   stage: dev
-  memorySize: 128
   region: eu-central-1
+  memorySize: 512
   apiGateway:
     shouldStartNameWithService: true
   tracing:
     lambda: true
 
 functions:
-  app:
+  api:
     handler: app.handler
     events:
       - http:
@@ -22,3 +22,20 @@ functions:
           path: /{proxy+}
           method: ANY
           cors: true
+
+resources:
+  Resources:
+    slugsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: slug
+            AttributeType: S
+        BillingMode: PROVISIONED
+        KeySchema:
+          - AttributeName: slug
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: Slugs

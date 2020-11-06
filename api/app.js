@@ -5,7 +5,7 @@ const morgan = require('morgan')
 const logger = require('debug')('http')
 const serverless = require('serverless-http')
 
-const urlRouter = require('./routes/url')
+const slugsRouter = require('./routes/slugs')
 
 const app = express()
 
@@ -13,7 +13,7 @@ app.use(morgan('dev', { stream: { write: msg => logger(msg) } }))
 app.use(express.json())
 app.use(cookieParser())
 
-app.use('/url', urlRouter)
+app.use('/slugs', slugsRouter)
 
 module.exports = app
 module.exports.handler = serverless(app)

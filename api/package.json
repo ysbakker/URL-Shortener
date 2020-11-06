@@ -7,6 +7,7 @@
     "dev": "DEBUG=server,http,log nodemon ./bin/www"
   },
   "dependencies": {
+    "aws-sdk": "^2.786.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
@@ -15,10 +16,12 @@
     "serverless-http": "^2.6.0"
   },
   "devDependencies": {
+    "dotenv": "^8.2.0",
     "eslint": "^7.12.1",
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-prettier": "^3.1.4",
     "nodemon": "^2.0.6",
-    "prettier": "^2.1.2"
+    "prettier": "^2.1.2",
+    "serverless-dotenv-plugin": "^3.1.0"
   }
 }

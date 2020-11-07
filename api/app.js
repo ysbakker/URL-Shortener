@@ -12,6 +12,7 @@ const express = require('express')
 const cookieParser = require('cookie-parser')
 const morgan = require('morgan')
 const logger = require('debug')('http')
+const error = require('./middleware/error')
 const serverless = require('serverless-http')
 const app = express()
 
@@ -22,6 +23,8 @@ app.use(express.json())
 app.use(cookieParser())
 
 app.use('/slugs', slugsRouter)
+
+app.use(error)
 
 module.exports = app
 module.exports.handler = serverless(app)

@@ -23,6 +23,35 @@ provider:
         - dynamodb:DeleteItem
       Resource: 'arn:aws:dynamodb:${env:AWS_REGION}:*:*'
 
+resources:
+  Resources:
+    slugsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: slug
+            AttributeType: S
+          - AttributeName: url
+            AttributeType: S
+        BillingMode: PROVISIONED
+        KeySchema:
+          - AttributeName: slug
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: url-index
+            KeySchema:
+              - AttributeName: url
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+            ProvisionedThroughput:
+              ReadCapacityUnits: 1
+              WriteCapacityUnits: 1
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: Slugs
+
 functions:
   api:
     handler: app.handler
@@ -35,23 +64,6 @@ functions:
           path: /{proxy+}
           method: ANY
           cors: true
-
-resources:
-  Resources:
-    slugsTable:
-      Type: AWS::DynamoDB::Table
-      Properties:
-        AttributeDefinitions:
-          - AttributeName: slug
-            AttributeType: S
-        BillingMode: PROVISIONED
-        KeySchema:
-          - AttributeName: slug
-            KeyType: HASH
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
-        TableName: Slugs
 
 custom:
   dotenv:

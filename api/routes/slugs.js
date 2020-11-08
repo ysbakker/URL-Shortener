@@ -22,7 +22,7 @@ router.get('/:slug', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   const { url } = req.body
   if (!url) return next({ rescode: 400, message: 'No url specified' })
-  if (!$.isUrl(url))
+  if (!$.isURL(url))
     return next({ rescode: 400, message: 'Specified url is invalid' })
 
   try {

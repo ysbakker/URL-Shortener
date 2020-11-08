@@ -1,19 +1,17 @@
 const AWS = require('aws-sdk')
-const { unmarshall } = AWS.DynamoDB.Converter
-const dynamo = new AWS.DynamoDB()
-const isEmpty = require('../util/isEmpty')
-const stripUrl = require('../util/stripUrl')
+const dynamo = new AWS.DynamoDB.DocumentClient()
+const $ = require('../util/index')
 const log = require('debug')('log')
 
 const getSlugData = async slug => {
   const result = await dynamo
-    .getItem({
+    .get({
       TableName: 'Slugs',
-      Key: { slug: { S: slug } },
+      Key: { slug },
     })
     .promise()
 
-  return isEmpty(result) ? null : unmarshall(result.Item)
+  return $.isEmpty(result) ? null : result.Item
 }
 
 const getSlugByURL = async url => {
@@ -24,14 +22,27 @@ const getSlugByURL = async url => {
       KeyConditionExpression: '#U = :url',
       ExpressionAttributeNames: { '#U': 'url' },
       ExpressionAttributeValues: {
-        ':url': {
-          S: stripUrl(url).url,
-        },
+        ':url': $.stripUrl(url).url,
       },
     })
     .promise()
 
-  return unmarshall(result.Items[0]) || null
+  return result.Items[0] || null
 }
 
-module.exports = { getSlugData, getSlugByURL }
+const createSlug = async inputUrl => {
+  const slug = $.generateSlug(5)
+  const { url, https } = $.stripUrl(inputUrl)
+
+  await dynamo
+    .put({
+      TableName: 'Slugs',
+      Item: { slug, url, https: https ? undefined : false },
+      ConditionExpression: 'attribute_not_exists(slug)',
+    })
+    .promise()
+
+  return { slug, url, https: https ? undefined : false }
+}
+
+module.exports = { getSlugData, getSlugByURL, createSlug }

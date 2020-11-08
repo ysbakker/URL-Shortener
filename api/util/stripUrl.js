@@ -1,12 +1,13 @@
-const stripUrl = url => {
-  const https = /https:\/\//.test(url)
+const stripURL = inputUrl => {
+  const pattern = /^https?:\/\//
+  if (!pattern.test(inputUrl)) inputUrl = `http://${inputUrl}`
+  let url = new URL(inputUrl)
 
-  url = url.replace(/^https?:\/\//, '')
-  url = /^.*?\//.test(url)
-    ? url.replace(/^.*?\//, url.match(/^.*?\//)[0].toLowerCase())
-    : url.toLowerCase()
+  url.pathname += url.pathname.endsWith('/') ? '' : '/'
+  protocol = url.protocol
+  url = url.href.replace(pattern, '')
 
-  return { url, https }
+  return { url, https: protocol === 'https:' }
 }
 
-module.exports = stripUrl
+module.exports = stripURL

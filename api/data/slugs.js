@@ -22,7 +22,7 @@ const getSlugByURL = async url => {
       KeyConditionExpression: '#U = :url',
       ExpressionAttributeNames: { '#U': 'url' },
       ExpressionAttributeValues: {
-        ':url': $.stripUrl(url).url,
+        ':url': $.stripURL(url).url,
       },
     })
     .promise()
@@ -32,7 +32,7 @@ const getSlugByURL = async url => {
 
 const createSlug = async inputUrl => {
   const slug = $.generateSlug(5)
-  const { url, https } = $.stripUrl(inputUrl)
+  const { url, https } = $.stripURL(inputUrl)
 
   await dynamo
     .put({

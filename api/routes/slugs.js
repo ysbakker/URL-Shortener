@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const log = require('debug')('log')
-const slugs = require('../model/slugs')
+const slugs = require('../data/slugs')
 
 router.get('/:slug', async (req, res, next) => {
   const { slug } = req.params

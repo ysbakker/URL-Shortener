@@ -1,4 +1,11 @@
 const AWS = require('aws-sdk')
+const express = require('express')
+const cookieParser = require('cookie-parser')
+const morgan = require('morgan')
+const logger = require('debug')('http')
+const serverless = require('serverless-http')
+const error = require('./middleware/error')
+
 AWS.config = new AWS.Config({
   credentials: {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -8,12 +15,6 @@ AWS.config = new AWS.Config({
   region: process.env.AWS_REGION,
 })
 
-const express = require('express')
-const cookieParser = require('cookie-parser')
-const morgan = require('morgan')
-const logger = require('debug')('http')
-const error = require('./middleware/error')
-const serverless = require('serverless-http')
 const app = express()
 
 const slugsRouter = require('./routes/slugs')

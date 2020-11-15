@@ -1,7 +1,7 @@
 <template>
   <div class="home-container">
     <div class="mast-text">
-      <h1>vect.it</h1>
+      <h1>{{ domain }}</h1>
       <h2>a URL shortener</h2>
     </div>
     <UrlForm />
@@ -17,7 +17,9 @@ import UrlForm from '../components/UrlForm.vue'
     UrlForm,
   },
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+  domain = process.env.VUE_APP_DOMAIN
+}
 </script>
 
 <style lang="scss" scoped>

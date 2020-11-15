@@ -1,6 +1,13 @@
 <template>
   <form @submit="handleSubmit">
-    <div class="url-input-container" :class="{ focused: urlInputFocus }">
+    <div
+      class="url-input-container"
+      :class="{
+        focused: urlInputFocus,
+        valid: urlIsValid,
+        invalid: urlIsValid === false,
+      }"
+    >
       <button
         class="secure-toggle"
         :class="{ https: https, http: !https }"
@@ -19,14 +26,18 @@
         autofocus
       />
     </div>
-    <button class="shorten" @click="handleSubmit">
+    <button
+      class="shorten"
+      :class="{ valid: urlIsValid, invalid: urlIsValid === false }"
+      @click="handleSubmit"
+    >
       <span><LinkPlus /></span>
     </button>
   </form>
 </template>
 
 <script>
-import { Vue, Component } from 'vue-property-decorator'
+import { Vue, Component, Watch } from 'vue-property-decorator'
 import LinkPlus from 'icons/LinkPlus.vue'
 
 @Component({
@@ -36,6 +47,7 @@ export default class UrlForm extends Vue {
   https = true
   urlInputFocus = false
   url = ''
+  urlIsValid = null
 
   handleSubmit(e) {
     e.preventDefault()
@@ -44,6 +56,14 @@ export default class UrlForm extends Vue {
   toggleHttps() {
     this.$refs.url.focus()
     this.https = !this.https
+  }
+
+  @Watch('url', { immediate: true })
+  validateUrl(val) {
+    const pattern = new RegExp(
+      /(https?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b[-a-zA-Z0-9@:%_+.~#?&//=]*/
+    )
+    this.urlIsValid = val ? pattern.test(val) : null
   }
 }
 </script>
@@ -121,6 +141,42 @@ button {
       }
     }
   }
+  &.invalid {
+    input,
+    button {
+      border-color: $dark_red;
+    }
+    &.focused {
+      input,
+      button {
+        border-color: lighten($dark_red, 10);
+      }
+      @media screen and (min-width: $sm) {
+        & ~ button.shorten {
+          border-color: lighten($dark_red, 10);
+          background: lighten($dark_red, 10);
+        }
+      }
+    }
+  }
+  &.valid {
+    input,
+    button {
+      border-color: $dark_green;
+    }
+    &.focused {
+      input,
+      button {
+        border-color: lighten($dark_green, 10);
+      }
+      @media screen and (min-width: $sm) {
+        & ~ button.shorten {
+          border-color: lighten($dark_green, 10);
+          background: lighten($dark_green, 10);
+        }
+      }
+    }
+  }
 }
 button.shorten {
   flex-basis: 100%;
@@ -141,6 +197,22 @@ button.shorten {
     width: 20px;
     height: 20px;
   }
+  &.valid {
+    border-color: $dark_green;
+    background: $dark_green;
+    &:hover {
+      border-color: lighten($dark_green, 10);
+      background: lighten($dark_green, 10);
+    }
+  }
+  &.invalid {
+    border-color: $dark_red;
+    background: $dark_red;
+    &:hover {
+      border-color: lighten($dark_red, 10);
+      background: lighten($dark_red, 10);
+    }
+  }
   @media screen and (min-width: $sm) {
     flex-basis: unset;
     flex: 0 0 auto;
@@ -153,6 +225,18 @@ button.shorten {
     &:hover {
       border-color: $dark_lightblue;
       background: $dark_lightblue;
+    }
+    &.valid {
+      &:hover {
+        border-color: $dark_green;
+        background: $dark_green;
+      }
+    }
+    &.invalid {
+      &:hover {
+        border-color: $dark_red;
+        background: $dark_red;
+      }
     }
   }
   @media screen and (min-width: $md) {

@@ -1,13 +1,13 @@
 <template>
-  <form @submit="handleSubmit">
-    <div
-      class="url-input-container"
-      :class="{
-        focused: urlInputFocus,
-        valid: urlIsValid,
-        invalid: urlIsValid === false,
-      }"
-    >
+  <form
+    @submit="handleSubmit"
+    :class="{
+      focused: urlInputFocus,
+      valid: urlIsValid,
+      invalid: urlIsValid === false,
+    }"
+  >
+    <div class="url-input-container">
       <button
         class="secure-toggle"
         :class="{ https: https, http: !https }"
@@ -26,11 +26,7 @@
         autofocus
       />
     </div>
-    <button
-      class="shorten"
-      :class="{ valid: urlIsValid, invalid: urlIsValid === false }"
-      @click="handleSubmit"
-    >
+    <button class="shorten" @click="handleSubmit">
       <span><LinkPlus /></span>
     </button>
   </form>
@@ -92,41 +88,75 @@ form {
       margin-bottom: 0;
     }
   }
-}
-input,
-button {
-  -webkit-appearance: none;
-  background: none;
-  border: 3px solid $dark_lightblue;
-  color: $dark_textlight;
-  padding: 0.5em;
-  font-size: 1.13rem;
-  @media screen and (min-width: $md) {
-    border-width: 4px;
-    font-size: 1.5rem;
-  }
-  @media screen and (min-width: $xl) {
-    font-size: 1.8rem;
-  }
-}
-button {
-  cursor: pointer;
-}
-.url-input-container {
-  display: flex;
-  flex-basis: 100%;
-  input {
-    flex-basis: 100%;
-    height: 100%;
-    border-radius: 0 $bradius-sm $bradius-sm 0;
-    border-left: none;
-    transition: border-color 0.2s;
+  input,
+  button {
+    -webkit-appearance: none;
+    background: none;
+    border: 3px solid $dark_lightblue;
+    border-radius: $bradius-sm;
+    color: $dark_textlight;
+    padding: 0.5em;
+    font-size: 1.13rem;
+    transition: border-color 0.2s, background 0.2s;
     &:focus {
       outline: none;
     }
+    @media screen and (min-width: $md) {
+      border-width: 4px;
+      font-size: 1.5rem;
+      border-radius: $bradius-md;
+    }
+    @media screen and (min-width: $xl) {
+      font-size: 1.8rem;
+      border-radius: $bradius-xl;
+    }
+  }
+  button {
+    cursor: pointer;
+  }
+  button.shorten {
+    flex-basis: 100%;
+    font-weight: bold;
+    background: $dark_lightblue;
+    & > span::after {
+      margin-left: 0.25em;
+      content: 'Shorten';
+    }
+    &:hover {
+      border-color: lighten($dark_lightblue, 10);
+      background: lighten($dark_lightblue, 10);
+    }
+    svg {
+      font-size: 0px;
+      width: 20px;
+      height: 20px;
+    }
     @media screen and (min-width: $sm) {
-      border-radius: 0;
-      border-right: none;
+      flex-basis: unset;
+      flex: 0 0 auto;
+      padding-left: calc(0.5em + 4px);
+      border-left: none;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      & > span::after {
+        content: none;
+      }
+      &:hover {
+        border-color: $dark_lightblue;
+        background: $dark_lightblue;
+      }
+    }
+    @media screen and (min-width: $md) {
+      svg {
+        width: 28px;
+        height: 28px;
+      }
+    }
+    @media screen and (min-width: $xl) {
+      svg {
+        width: 32px;
+        height: 32px;
+      }
     }
   }
   &.focused {
@@ -134,28 +164,13 @@ button {
     button {
       border-color: lighten($dark_lightblue, 10);
     }
+    button.shorten {
+      background: lighten($dark_lightblue, 10);
+    }
     @media screen and (min-width: $sm) {
-      & ~ button.shorten {
+      button.shorten {
         border-color: lighten($dark_lightblue, 10);
         background: lighten($dark_lightblue, 10);
-      }
-    }
-  }
-  &.invalid {
-    input,
-    button {
-      border-color: $dark_red;
-    }
-    &.focused {
-      input,
-      button {
-        border-color: lighten($dark_red, 10);
-      }
-      @media screen and (min-width: $sm) {
-        & ~ button.shorten {
-          border-color: lighten($dark_red, 10);
-          background: lighten($dark_red, 10);
-        }
       }
     }
   }
@@ -170,87 +185,65 @@ button {
         border-color: lighten($dark_green, 10);
       }
       @media screen and (min-width: $sm) {
-        & ~ button.shorten {
+        button.shorten {
           border-color: lighten($dark_green, 10);
           background: lighten($dark_green, 10);
         }
       }
     }
-  }
-}
-button.shorten {
-  flex-basis: 100%;
-  border-radius: $bradius-sm;
-  font-weight: bold;
-  background: $dark_lightblue;
-  transition: border-color 0.2s, background 0.2s;
-  & > span::after {
-    margin-left: 0.25em;
-    content: 'Shorten';
-  }
-  &:hover {
-    border-color: lighten($dark_lightblue, 10);
-    background: lighten($dark_lightblue, 10);
-  }
-  svg {
-    font-size: 0px;
-    width: 20px;
-    height: 20px;
-  }
-  &.valid {
-    border-color: $dark_green;
-    background: $dark_green;
-    &:hover {
-      border-color: lighten($dark_green, 10);
-      background: lighten($dark_green, 10);
+    button.shorten {
+      background: $dark_green;
+      &:hover {
+        border-color: lighten($dark_green, 10);
+        background: lighten($dark_green, 10);
+        @media screen and (min-width: $sm) {
+          border-color: $dark_green;
+          background: $dark_green;
+        }
+      }
     }
   }
   &.invalid {
-    border-color: $dark_red;
-    background: $dark_red;
-    &:hover {
-      border-color: lighten($dark_red, 10);
-      background: lighten($dark_red, 10);
+    input,
+    button {
+      border-color: $dark_red;
+    }
+    &.focused {
+      input,
+      button {
+        border-color: lighten($dark_red, 10);
+      }
+      @media screen and (min-width: $sm) {
+        button.shorten {
+          border-color: lighten($dark_red, 10);
+          background: lighten($dark_red, 10);
+        }
+      }
+    }
+    button.shorten {
+      background: $dark_red;
+      &:hover {
+        border-color: lighten($dark_red, 10);
+        background: lighten($dark_red, 10);
+        @media screen and (min-width: $sm) {
+          border-color: $dark_red;
+          background: $dark_red;
+        }
+      }
     }
   }
-  @media screen and (min-width: $sm) {
-    flex-basis: unset;
-    flex: 0 0 auto;
+}
+.url-input-container {
+  display: flex;
+  flex-basis: 100%;
+  input {
+    flex-basis: 100%;
+    height: 100%;
     border-radius: 0 $bradius-sm $bradius-sm 0;
-    padding-left: calc(0.5em + 4px);
     border-left: none;
-    & > span::after {
-      content: none;
-    }
-    &:hover {
-      border-color: $dark_lightblue;
-      background: $dark_lightblue;
-    }
-    &.valid {
-      &:hover {
-        border-color: $dark_green;
-        background: $dark_green;
-      }
-    }
-    &.invalid {
-      &:hover {
-        border-color: $dark_red;
-        background: $dark_red;
-      }
-    }
-  }
-  @media screen and (min-width: $md) {
-    border-radius: 0 $bradius-md $bradius-md 0;
-    svg {
-      width: 28px;
-      height: 28px;
-    }
-  }
-  @media screen and (min-width: $xl) {
-    border-radius: 0 $bradius-xl $bradius-xl 0;
-    svg {
-      width: 32px;
-      height: 32px;
+    @media screen and (min-width: $sm) {
+      border-radius: 0;
+      border-right: none;
     }
   }
 }

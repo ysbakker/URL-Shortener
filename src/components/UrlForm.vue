@@ -97,7 +97,7 @@ form {
     color: $dark_textlight;
     padding: 0.5em;
     font-size: 1.13rem;
-    transition: border-color 0.2s, background 0.2s;
+    transition: border-color 0.3s, background 0.3s;
     &:focus {
       outline: none;
     }
@@ -177,28 +177,33 @@ form {
   &.valid {
     input,
     button {
-      border-color: $dark_green;
+      border-color: $dark_greenalt;
     }
     &.focused {
       input,
       button {
-        border-color: lighten($dark_green, 10);
+        border-color: lighten($dark_greenalt, 10);
       }
-      @media screen and (min-width: $sm) {
-        button.shorten {
-          border-color: lighten($dark_green, 10);
-          background: lighten($dark_green, 10);
+      button.shorten {
+        border-color: $dark_greenalt;
+        background: $dark_greenalt;
+        @media screen and (min-width: $sm) {
+          &,
+          &:hover {
+            border-color: lighten($dark_greenalt, 10);
+            background: lighten($dark_greenalt, 10);
+          }
         }
       }
     }
     button.shorten {
-      background: $dark_green;
+      background: $dark_greenalt;
       &:hover {
-        border-color: lighten($dark_green, 10);
-        background: lighten($dark_green, 10);
+        border-color: lighten($dark_greenalt, 10);
+        background: lighten($dark_greenalt, 10);
         @media screen and (min-width: $sm) {
-          border-color: $dark_green;
-          background: $dark_green;
+          border-color: $dark_greenalt;
+          background: $dark_greenalt;
         }
       }
     }
@@ -206,28 +211,33 @@ form {
   &.invalid {
     input,
     button {
-      border-color: $dark_red;
+      border-color: $dark_redalt;
     }
     &.focused {
       input,
       button {
-        border-color: lighten($dark_red, 10);
+        border-color: lighten($dark_redalt, 10);
       }
-      @media screen and (min-width: $sm) {
-        button.shorten {
-          border-color: lighten($dark_red, 10);
-          background: lighten($dark_red, 10);
+      button.shorten {
+        border-color: $dark_redalt;
+        background: $dark_redalt;
+        @media screen and (min-width: $sm) {
+          &,
+          &:hover {
+            border-color: lighten($dark_redalt, 10);
+            background: lighten($dark_redalt, 10);
+          }
         }
       }
     }
     button.shorten {
-      background: $dark_red;
+      background: $dark_redalt;
       &:hover {
-        border-color: lighten($dark_red, 10);
-        background: lighten($dark_red, 10);
+        border-color: lighten($dark_redalt, 10);
+        background: lighten($dark_redalt, 10);
         @media screen and (min-width: $sm) {
-          border-color: $dark_red;
-          background: $dark_red;
+          border-color: $dark_redalt;
+          background: $dark_redalt;
         }
       }
     }
@@ -248,21 +258,15 @@ form {
   }
 }
 button.secure-toggle {
-  border-right: none;
-  border-radius: $bradius-sm 0 0 $bradius-sm;
-  transition: border-color 0.2s;
   background: $dark_lightblue;
+  border-right: none;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
   &.https {
     background: $dark_green;
   }
   &.http {
     background: $dark_red;
-  }
-  @media screen and (min-width: $md) {
-    border-radius: $bradius-md 0 0 $bradius-md;
-  }
-  @media screen and (min-width: $xl) {
-    border-radius: $bradius-xl 0 0 $bradius-xl;
   }
 }
 </style>

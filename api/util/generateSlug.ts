@@ -1,8 +1,9 @@
-const random = require('crypto-random-string')
-const Filter = require('bad-words')
+import random from 'crypto-random-string'
+import { Exception } from '../types/exceptions'
+import Filter from 'bad-words'
 const filter = new Filter()
 
-const generateSlug = length => {
+const generateSlug = (length: number): string => {
   const maxIterations = 10000
 
   let slug = random({ length, type: 'alphanumeric' })
@@ -15,10 +16,10 @@ const generateSlug = length => {
   }
 
   if (iterations >= maxIterations) {
-    const error = new Error(
-      `Slug generator exceeded ${maxIterations} iterations.`
+    const error = new Exception(
+      `Slug generator exceeded ${maxIterations} iterations.`,
+      'SLUG_GENERATOR_ERROR'
     )
-    error.code = 'SLUG_GENERATOR_ERROR'
     console.error(error)
     throw error
   }
@@ -26,4 +27,4 @@ const generateSlug = length => {
   return slug
 }
 
-module.exports = generateSlug
+export default generateSlug

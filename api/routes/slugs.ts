@@ -3,7 +3,7 @@ import { Router } from 'express'
 const router = Router()
 import debug from 'debug'
 import { getSlugData, getSlugByURL, createSlug } from '../data/slugs'
-import { isURL } from '../util/index'
+import { isUrl } from '../util/index'
 const log = debug('log')
 
 router.get('/:slug', async (req, res, next) => {

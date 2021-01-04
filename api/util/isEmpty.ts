@@ -1,4 +1,4 @@
-const isEmpty = object =>
+const isEmpty = (object: any): boolean =>
   Object.keys(object).length === 0 && object.constructor === Object
 
-module.exports = isEmpty
+export default isEmpty

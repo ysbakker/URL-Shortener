@@ -1,4 +1,4 @@
-const parse = tags => {
+const parse = (tags: any): string => {
   let result = '<html><head>'
   result = result.concat(meta('title', tags.ogTitle))
   result = result.concat(meta('type', tags.ogType))
@@ -20,7 +20,7 @@ const parse = tags => {
   return result
 }
 
-const meta = (prop, content) =>
+const meta = (prop: string, content: string): string =>
   content ? `<meta property="og:${prop}" content="${content}" />` : ''
 
-module.exports = parse
+export default parse

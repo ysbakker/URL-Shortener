@@ -65,3 +65,6 @@ typings/
 .serverless
 admin.env
 _meta
+
+# TypeScript output
+out

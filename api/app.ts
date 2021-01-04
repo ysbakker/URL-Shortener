@@ -19,7 +19,7 @@ const app = express()
 
 const slugsRouter = require('./routes/slugs')
 
-app.use(morgan('dev', { stream: { write: msg => logger(msg) } }))
+app.use(morgan('dev', { stream: { write: (msg: any) => logger(msg) } }))
 app.use(express.json())
 app.use(cookieParser())
 

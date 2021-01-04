@@ -1,7 +1,8 @@
+/* eslint-disable global-require */
 module.exports = {
   parseMeta: require('./parseMeta'),
   isEmpty: require('./isEmpty'),
-  stripURL: require('./stripURL'),
+  stripURL: require('./stripUrl'),
   generateSlug: require('./generateSlug'),
-  isURL: require('./isURL'),
+  isURL: require('./isUrl'),
 }

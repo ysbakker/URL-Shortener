@@ -1,7 +1,8 @@
 const AWS = require('aws-sdk')
+
 const dynamo = new AWS.DynamoDB.DocumentClient()
-const $ = require('../util/index')
 const log = require('debug')('log')
+const $ = require('../util/index')
 
 const getSlugData = async slug => {
   const result = await dynamo

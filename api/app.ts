@@ -1,15 +1,15 @@
-const AWS = require('aws-sdk')
-const express = require('express')
-const cookieParser = require('cookie-parser')
-const morgan = require('morgan')
-const logger = require('debug')('http')
-const serverless = require('serverless-http')
-const error = require('./middleware/error')
+import AWS from 'aws-sdk'
+import express from 'express'
+import cookieParser from 'cookie-parser'
+import morgan from 'morgan'
+import serverless from 'serverless-http'
+import debug from 'debug'
+const logger = debug('http')
 
 AWS.config = new AWS.Config({
   credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
     sessionToken: process.env.AWS_SESSION_TOKEN,
   },
   region: process.env.AWS_REGION,
@@ -17,7 +17,8 @@ AWS.config = new AWS.Config({
 
 const app = express()
 
-const slugsRouter = require('./routes/slugs')
+import error from './middleware/error'
+import slugsRouter from './routes/slugs'
 
 app.use(morgan('dev', { stream: { write: (msg: any) => logger(msg) } }))
 app.use(express.json())

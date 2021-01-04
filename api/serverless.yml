@@ -1,12 +1,10 @@
 service: url-shortener
-plugins:
-  - serverless-dotenv-plugin
+useDotenv: true
 provider:
   name: aws
   runtime: nodejs12.x
   stage: ${opt:stage, 'dev'}
   region: ${env:AWS_REGION}
-  memorySize: 512
   apiGateway:
     shouldStartNameWithService: true
   tracing:
@@ -28,6 +26,7 @@ resources:
     slugsTable:
       Type: AWS::DynamoDB::Table
       Properties:
+        TableName: Slugs
         AttributeDefinitions:
           - AttributeName: slug
             AttributeType: S
@@ -50,10 +49,11 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
-        TableName: Slugs
 
 functions:
   api:
+    memorySize: 512
+    reservedConcurrency: 5
     handler: app.handler
     events:
       - http:
@@ -64,12 +64,3 @@ functions:
           path: /{proxy+}
           method: ANY
           cors: true
-
-custom:
-  dotenv:
-    exclude:
-      - AWS_REGION
-      - AWS_ACCESS_KEY_ID
-      - AWS_SECRET_ACCESS_KEY
-    required:
-      file: true

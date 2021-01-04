@@ -44,6 +44,7 @@ export default class UrlForm extends Vue {
   urlInputFocus = false
   url = ''
   urlIsValid = null
+  urlFetchTimeout = null
 
   handleSubmit(e) {
     e.preventDefault()

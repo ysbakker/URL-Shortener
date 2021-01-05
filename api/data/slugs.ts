@@ -1,10 +1,11 @@
-const AWS = require('aws-sdk')
+import AWS from 'aws-sdk'
 
 const dynamo = new AWS.DynamoDB.DocumentClient()
-const log = require('debug')('log')
-const $ = require('../util/index')
+import debug from 'debug'
+import { isEmpty, stripUrl, generateSlug } from '../util/index'
+const log = debug('log')
 
-const getSlugData = async slug => {
+const getSlugData = async (slug: string): Promise<any> => {
   const result = await dynamo
     .get({
       TableName: 'Slugs',
@@ -12,10 +13,10 @@ const getSlugData = async slug => {
     })
     .promise()
 
-  return $.isEmpty(result) ? null : result.Item
+  return isEmpty(result) ? null : result.Item
 }
 
-const getSlugByURL = async url => {
+const getSlugByURL = async (url: string): Promise<any> => {
   const result = await dynamo
     .query({
       TableName: 'Slugs',
@@ -23,17 +24,17 @@ const getSlugByURL = async url => {
       KeyConditionExpression: '#U = :url',
       ExpressionAttributeNames: { '#U': 'url' },
       ExpressionAttributeValues: {
-        ':url': $.stripURL(url).url,
+        ':url': stripUrl(url).url,
       },
     })
     .promise()
 
-  return result.Items[0] || null
+  return result.Items?.[0]
 }
 
-const createSlug = async inputUrl => {
-  const slug = $.generateSlug(5)
-  const { url, https } = $.stripURL(inputUrl)
+const createSlug = async (inputUrl: string): Promise<any> => {
+  const slug = generateSlug(5)
+  const { url, https } = stripUrl(inputUrl)
 
   await dynamo
     .put({
@@ -46,4 +47,4 @@ const createSlug = async inputUrl => {
   return { slug, url, https: https ? undefined : false }
 }
 
-module.exports = { getSlugData, getSlugByURL, createSlug }
+export { getSlugData, getSlugByURL, createSlug }

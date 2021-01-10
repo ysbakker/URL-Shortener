@@ -1,9 +1,11 @@
+import debug from 'debug'
 import random from 'crypto-random-string'
-import { Exception } from '../types/exceptions'
 import Filter from 'bad-words'
+import createHttpError from 'http-errors'
 const filter = new Filter()
+const log = debug('error')
 
-const generateSlug = (length: number): string => {
+export const generateSlug = (length: number): string => {
   const maxIterations = 10000
 
   let slug = random({ length, type: 'alphanumeric' })
@@ -16,15 +18,9 @@ const generateSlug = (length: number): string => {
   }
 
   if (iterations >= maxIterations) {
-    const error = new Exception(
-      `Slug generator exceeded ${maxIterations} iterations.`,
-      'SLUG_GENERATOR_ERROR'
-    )
-    console.error(error)
-    throw error
+    log('Slug generation exceeded iteration limit')
+    throw createHttpError(500, 'Slug generation failed')
   }
 
   return slug
 }
-
-export default generateSlug

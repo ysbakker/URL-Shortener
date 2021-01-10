@@ -1,25 +1,15 @@
 import { Request, Response, NextFunction } from 'express'
+import { HttpError } from 'http-errors'
 
 const error = (
-  error: any,
+  error: HttpError,
   req: Request,
   res: Response,
   next: NextFunction
 ): any => {
-  const { rescode } = error
+  const { status, message } = error
 
-  res.status(rescode || 500).json({ error: getErrorMessage(error) })
-}
-
-const getErrorMessage = (error: any) => {
-  const { rescode, message } = error
-
-  switch (rescode) {
-    case 500:
-      return message || 'Internal server error occurred.'
-    default:
-      return message || 'Something went wrong.'
-  }
+  return res.status(status || 500).json({ error: message })
 }
 
 export default error

@@ -7,12 +7,14 @@
     "dev": "DEBUG=server,http,log nodemon ./bin/www"
   },
   "dependencies": {
+    "@types/http-errors": "^1.8.0",
     "aws-sdk": "^2.786.0",
     "bad-words": "^3.0.3",
     "cookie-parser": "~1.4.4",
     "crypto-random-string": "^3.3.0",
     "debug": "~2.6.9",
     "express": "~4.16.1",
+    "http-errors": "^1.8.0",
     "morgan": "~1.9.1",
     "open-graph-scraper": "^4.7.0",
     "serverless-http": "^2.6.0"

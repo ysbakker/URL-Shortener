@@ -32,7 +32,7 @@
   </form>
 </template>
 
-<script>
+<script lang="ts">
 import { Vue, Component, Watch } from 'vue-property-decorator'
 import LinkPlus from 'icons/LinkPlus.vue'
 
@@ -43,20 +43,20 @@ export default class UrlForm extends Vue {
   https = true
   urlInputFocus = false
   url = ''
-  urlIsValid = null
-  urlFetchTimeout = null
+  urlIsValid?: boolean | null
 
-  handleSubmit(e) {
+  handleSubmit(e: Event) {
     e.preventDefault()
   }
 
   toggleHttps() {
-    this.$refs.url.focus()
+    const urlInput = this.$refs.url as HTMLFormElement
+    urlInput.focus()
     this.https = !this.https
   }
 
   @Watch('url', { immediate: true })
-  validateUrl(val) {
+  validateUrl(val: string) {
     const pattern = new RegExp(
       /(https?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b[-a-zA-Z0-9@:%_+.~#?&//=]*/
     )

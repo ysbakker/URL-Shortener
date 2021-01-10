@@ -4,9 +4,7 @@ const router = Router()
 import debug from 'debug'
 import { getSlugData, getSlugByUrl, createSlug } from '../data/slugs'
 import { isUrl } from '../../common/util'
-import { Slug } from '../../common/types'
 import createHttpError from 'http-errors'
-const log = debug('log')
 
 router.get('/:slug', async (req, res, next) => {
   const { slug } = req.params

@@ -1,7 +1,6 @@
 import { Router } from 'express'
 
 const router = Router()
-import debug from 'debug'
 import { getSlugData, getSlugByUrl, createSlug } from '../data/slugs'
 import { isUrl } from '../../common/util'
 import createHttpError from 'http-errors'

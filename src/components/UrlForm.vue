@@ -35,6 +35,7 @@
 <script lang="ts">
 import { Vue, Component, Watch } from 'vue-property-decorator'
 import LinkPlus from 'icons/LinkPlus.vue'
+import { isUrl } from '../../common/util'
 
 @Component({
   components: { LinkPlus },
@@ -43,7 +44,7 @@ export default class UrlForm extends Vue {
   https = true
   urlInputFocus = false
   url = ''
-  urlIsValid?: boolean | null
+  urlIsValid?: boolean
 
   handleSubmit(e: Event) {
     e.preventDefault()
@@ -57,10 +58,7 @@ export default class UrlForm extends Vue {
 
   @Watch('url', { immediate: true })
   validateUrl(val: string) {
-    const pattern = new RegExp(
-      /(https?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b[-a-zA-Z0-9@:%_+.~#?&//=]*/
-    )
-    this.urlIsValid = val ? pattern.test(val) : null
+    this.urlIsValid = val ? isUrl(val) : undefined
   }
 }
 </script>

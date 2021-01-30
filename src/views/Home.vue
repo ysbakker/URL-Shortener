@@ -5,16 +5,19 @@
       <h2>a URL shortener</h2>
     </div>
     <UrlForm />
+    <UrlPreview />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import UrlForm from '../components/UrlForm.vue'
+import UrlPreview from '../components/UrlPreview.vue'
 
 @Component({
   components: {
     UrlForm,
+    UrlPreview,
   },
 })
 export default class Home extends Vue {

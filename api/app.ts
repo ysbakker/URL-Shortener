@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser'
 import morgan from 'morgan'
 import serverless from 'serverless-http'
 import debug from 'debug'
+import cors from 'cors'
 const logger = debug('http')
 
 AWS.config = new AWS.Config({
@@ -20,6 +21,7 @@ const app = express()
 import error from './middleware/error'
 import slugsRouter from './routes/slugs'
 
+app.use(cors({ origin: '*' }))
 app.use(morgan('dev', { stream: { write: (msg: any) => logger(msg) } }))
 app.use(express.json())
 app.use(cookieParser())

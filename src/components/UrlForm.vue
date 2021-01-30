@@ -9,6 +9,7 @@
   >
     <div class="url-input-container">
       <button
+        type="button"
         class="secure-toggle"
         :class="{ https: https, http: !https }"
         @click="toggleHttps"
@@ -26,7 +27,7 @@
         autofocus
       />
     </div>
-    <button class="shorten" @click="handleSubmit">
+    <button type="button" class="shorten" @click="handleSubmit">
       <span><LinkPlus /></span>
     </button>
   </form>
@@ -48,6 +49,8 @@ export default class UrlForm extends Vue {
 
   handleSubmit(e: Event) {
     e.preventDefault()
+    const { url, https } = this
+    this.$store.dispatch('url/createSlug', { url, https })
   }
 
   toggleHttps() {

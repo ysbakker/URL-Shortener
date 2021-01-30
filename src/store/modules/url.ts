@@ -42,11 +42,10 @@ export const url: Module<UrlState, any> = {
       const fullUrl = `http${https == true ? 's' : ''}://${url}`
       const request = fetch(`${process.env.VUE_APP_API_URL}/slugs/`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url: fullUrl }),
       })
+      commit('setError', undefined)
       commit('setFetching', true)
       commit('setUrl', { url, https })
 

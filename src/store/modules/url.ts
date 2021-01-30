@@ -3,8 +3,8 @@ import { Module } from 'vuex'
 import { Slug } from '../../../common/types'
 
 export interface UrlState {
-  slug: string
-  url: string
+  slug?: string
+  url?: string
   https: boolean
   fetching: boolean
   error?: string
@@ -13,8 +13,8 @@ export interface UrlState {
 export const url: Module<UrlState, any> = {
   namespaced: true,
   state: {
-    slug: '',
-    url: '',
+    slug: undefined,
+    url: undefined,
     https: true,
     fetching: false,
     error: undefined,

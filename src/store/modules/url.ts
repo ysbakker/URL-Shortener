@@ -19,9 +19,6 @@ export const url: Module<UrlState, any> = {
     fetching: false,
     error: undefined,
   },
-  getters: {
-    isFetching: (state: UrlState) => state.fetching,
-  },
   mutations: {
     setFetching(state: UrlState, payload: boolean) {
       state.fetching = payload

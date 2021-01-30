@@ -175,6 +175,40 @@ form {
       }
     }
   }
+  &.fetching {
+    input,
+    button {
+      border-color: $dark_darkgrey;
+    }
+    &.focused {
+      input,
+      button {
+        border-color: lighten($dark_darkgrey, 10);
+      }
+      button.shorten {
+        border-color: $dark_darkgrey;
+        background: $dark_darkgrey;
+        @media screen and (min-width: $sm) {
+          &,
+          &:hover {
+            border-color: lighten($dark_darkgrey, 10);
+            background: lighten($dark_darkgrey, 10);
+          }
+        }
+      }
+    }
+    button.shorten {
+      background: $dark_darkgrey;
+      &:hover {
+        border-color: lighten($dark_darkgrey, 10);
+        background: lighten($dark_darkgrey, 10);
+        @media screen and (min-width: $sm) {
+          border-color: $dark_darkgrey;
+          background: $dark_darkgrey;
+        }
+      }
+    }
+  }
 }
 .url-input-container {
   display: flex;

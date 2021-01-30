@@ -5,6 +5,7 @@
       focused: urlInputFocus,
       valid: urlIsValid,
       invalid: urlIsValid === false,
+      fetching,
     }"
   >
     <div class="url-input-container">
@@ -57,6 +58,10 @@ export default class UrlForm extends Vue {
     const urlInput = this.$refs.url as HTMLFormElement
     urlInput.focus()
     this.https = !this.https
+  }
+
+  get fetching() {
+    return this.$store.state.url.fetching
   }
 
   @Watch('url', { immediate: true })

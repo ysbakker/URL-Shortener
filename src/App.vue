@@ -4,33 +4,4 @@
   </div>
 </template>
 
-<style lang="scss">
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-html,
-body {
-  background: #111;
-}
-
-html,
-body,
-#app {
-  width: 100%;
-  height: 100%;
-}
-
-.material-design-icon svg {
-  transform: translateY(3px);
-}
-</style>
+<style lang="scss" src="./style/main.scss" />

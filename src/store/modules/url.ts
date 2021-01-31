@@ -36,7 +36,7 @@ export const url: Module<UrlState, any> = {
   actions: {
     async createSlug({ commit }, payload: { url: string; https: boolean }) {
       const { url, https } = payload
-      const fullUrl = `http${https == true ? 's' : ''}://${url}`
+      const fullUrl = `http${https === true ? 's' : ''}://${url}`
       const request = fetch(`${process.env.VUE_APP_API_URL}/slugs/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

@@ -1,0 +1,8 @@
+@import '../style/_colors.scss';
+
+a.shortlink {
+  color: $dark_text;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 2em;
+}

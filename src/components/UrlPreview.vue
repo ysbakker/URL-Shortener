@@ -19,6 +19,7 @@
       @click="handleCopy"
       id="copy-btn"
       data-clipboard-target="#slug"
+      v-if="slug && !fetching"
     >
       <span v-if="copySuccess === true"><CheckCircle /> Copied</span>
       <span v-else><ContentCopy /> Copy</span>

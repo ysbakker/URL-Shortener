@@ -22,7 +22,7 @@ import error from './middleware/error'
 import slugsRouter from './routes/slugs'
 
 app.use(cors({ origin: '*' }))
-app.use(morgan('dev', { stream: { write: (msg: any) => logger(msg) } }))
+app.use(morgan('dev', { stream: { write: (msg: string) => logger(msg) } }))
 app.use(express.json())
 app.use(cookieParser())
 

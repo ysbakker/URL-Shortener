@@ -1,0 +1,114 @@
+@import './_colors.scss';
+@import './_breakpoints.scss';
+@import './_vars.scss';
+
+input,
+button {
+  -webkit-appearance: none;
+  background: none;
+  border-radius: $bradius-sm;
+  border: 3px solid $dark_lightblue;
+  color: $dark_textlight;
+  padding: 0.5em;
+  font-size: 1.13rem;
+  transition: border-color 0.3s, background 0.3s;
+  &:focus {
+    outline: none;
+  }
+  @media screen and (min-width: $md) {
+    border-width: 4px;
+    font-size: 1.5rem;
+    border-radius: $bradius-md;
+  }
+  @media screen and (min-width: $xl) {
+    font-size: 1.8rem;
+    border-radius: $bradius-xl;
+  }
+  &:hover,
+  &.highlight {
+    border-color: lighten($dark_lightblue, 10%);
+  }
+  &.green {
+    border-color: $dark_green;
+    &:hover,
+    &.highlight {
+      border-color: lighten($dark_green, 5%);
+    }
+  }
+  &.red {
+    border-color: $dark_red;
+    &:hover,
+    &.highlight {
+      border-color: lighten($dark_red, 5%);
+    }
+  }
+  &.lightgreen {
+    border-color: $dark_greenalt;
+    &:hover,
+    &.highlight {
+      border-color: lighten($dark_greenalt, 10%);
+    }
+  }
+  &.lightred {
+    border-color: $dark_redalt;
+    &:hover,
+    &.highlight {
+      border-color: lighten($dark_redalt, 10%);
+    }
+  }
+}
+
+button {
+  cursor: pointer;
+  background-color: $dark_lightblue;
+  font-weight: bold;
+  svg {
+    font-size: 0px;
+    width: 20px;
+    height: 20px;
+  }
+  @media screen and (min-width: $md) {
+    svg {
+      width: 28px;
+      height: 28px;
+    }
+  }
+  @media screen and (min-width: $xl) {
+    svg {
+      width: 32px;
+      height: 32px;
+    }
+  }
+  &:hover,
+  &.highlight {
+    background-color: lighten($dark_lightblue, 10%);
+  }
+  &.green {
+    background-color: $dark_green;
+    &:hover,
+    &.highlight {
+      background-color: lighten($dark_green, 5%);
+    }
+  }
+  &.red {
+    background-color: $dark_red;
+    &:hover,
+    &.highlight {
+      background-color: lighten($dark_red, 5%);
+    }
+  }
+  &.lightgreen {
+    background-color: $dark_greenalt;
+    &:hover,
+    &.highlight {
+      background-color: lighten($dark_greenalt, 10%);
+    }
+  }
+  &.lightred {
+    background-color: $dark_redalt;
+    &:hover,
+    &.highlight {
+      background-color: lighten($dark_redalt, 10%);
+    }
+  }
+}

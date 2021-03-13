@@ -12,7 +12,11 @@
       <button
         type="button"
         class="secure-toggle"
-        :class="{ https: https, http: !https }"
+        :class="{
+          green: https,
+          red: !https,
+          highlight: urlInputFocus,
+        }"
         @click="toggleHttps"
       >
         {{ https ? 'https://' : 'http://' }}
@@ -20,6 +24,11 @@
       <input
         @focus="urlInputFocus = true"
         @blur="urlInputFocus = false"
+        :class="{
+          lightgreen: urlIsValid === true,
+          lightred: urlIsValid === false,
+          highlight: urlInputFocus,
+        }"
         size="1"
         ref="url"
         name="url"
@@ -28,7 +37,16 @@
         autofocus
       />
     </div>
-    <button type="button" class="shorten" @click="handleSubmit">
+    <button
+      type="button"
+      class="shorten"
+      :class="{
+        lightgreen: urlIsValid === true,
+        lightred: urlIsValid === false,
+        highlight: urlInputFocus,
+      }"
+      @click="handleSubmit"
+    >
       <span><LinkPlus /></span>
     </button>
   </form>

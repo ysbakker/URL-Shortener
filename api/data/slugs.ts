@@ -7,18 +7,22 @@ import createHttpError from 'http-errors'
 const dynamo = new DocumentClient()
 const log = debug('log')
 
+const TABLE_NAME = `slugs-${process.env.STAGE == 'prod' ? 'prod' : 'dev'}`
+
 export const getSlugData = async (slug: string): Promise<Slug> => {
   let result: DocumentClient.AttributeMap | undefined
   try {
     const { Item } = await dynamo
       .get({
-        TableName: 'Slugs',
+        TableName: TABLE_NAME,
         Key: { slug },
       })
       .promise()
     result = Item
   } catch (e) {
-    throw createHttpError(500, 'Data provider error occurred')
+    throw createHttpError(500, 'Data provider error occurred', {
+      details: e,
+    })
   }
 
   if (!result) throw createHttpError(404, 'Slug not found')
@@ -30,7 +34,7 @@ export const getSlugByUrl = async (url: string): Promise<Slug | undefined> => {
   try {
     const { Items } = await dynamo
       .query({
-        TableName: 'Slugs',
+        TableName: TABLE_NAME,
         IndexName: 'url-index',
         KeyConditionExpression: '#U = :url',
         ExpressionAttributeNames: { '#U': 'url' },
@@ -41,7 +45,9 @@ export const getSlugByUrl = async (url: string): Promise<Slug | undefined> => {
       .promise()
     result = Items
   } catch (e) {
-    throw createHttpError(500, 'Data provider error occurred')
+    throw createHttpError(500, 'Data provider error occurred', {
+      details: e,
+    })
   }
 
   return result?.[0] as Slug
@@ -53,13 +59,15 @@ export const createSlug = async (inputUrl: string): Promise<Slug> => {
   try {
     await dynamo
       .put({
-        TableName: 'Slugs',
+        TableName: TABLE_NAME,
         Item: { slug, url, https },
         ConditionExpression: 'attribute_not_exists(slug)',
       })
       .promise()
   } catch (e) {
-    throw createHttpError(500, 'Data provider error occurred')
+    throw createHttpError(500, 'Data provider error occurred', {
+      details: e,
+    })
   }
 
   return { slug, url, https }

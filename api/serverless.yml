@@ -5,6 +5,8 @@ provider:
   runtime: nodejs12.x
   stage: ${opt:stage, 'dev'}
   region: ${env:AWS_REGION}
+  environment:
+    STAGE: ${opt:stage, 'dev'}
   apiGateway:
     shouldStartNameWithService: true
   tracing:
@@ -28,7 +30,7 @@ resources:
     slugsTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: Slugs
+        TableName: "slugs-${opt:stage, 'dev'}"
         AttributeDefinitions:
           - AttributeName: slug
             AttributeType: S

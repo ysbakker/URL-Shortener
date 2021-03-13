@@ -26,3 +26,6 @@ docs
 
 # Nginx config
 nginx/app.conf
+
+# Deploy script
+deploy.sh

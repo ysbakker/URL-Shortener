@@ -8,9 +8,7 @@
         target="_blank"
         v-if="slug && !fetching"
       >
-        <span id="slug">
-          {{ `${domain}/${slug}` }}
-        </span>
+        <span id="slug">{{ `${domain}/${slug}` }}</span>
         <OpenInNew />
       </a>
     </div>

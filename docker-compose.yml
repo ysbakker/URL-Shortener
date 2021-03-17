@@ -1,0 +1,19 @@
+version: '2.4'
+
+services:
+  client:
+    restart: always
+    image: ysbakker/url-shortener-client
+    depends_on:
+      - 'resolver'
+    ports:
+      - '3004:80'
+    mem_limit: 100m
+  resolver:
+    restart: always
+    image: ysbakker/url-shortener-resolver
+    environment:
+      - PORT=80
+    ports:
+      - '3005:80'
+    mem_limit: 100m

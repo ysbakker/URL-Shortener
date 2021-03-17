@@ -1,18 +1,11 @@
 # URL Shortener
 
-## 🛠 **WIP**
-
-This is/will be a URL shortener built in [Vue.js](https://vuejs.org/). I wanted
-to experiment with AWS' free tier, so I'll be using
-[AWS Lambda](https://aws.amazon.com/lambda/) (serverless) as a backend. I'm
-assuming it'll be easiest to use a Amazon-hosted database with Lambda so I'll
-probably use [Dynamodb](https://aws.amazon.com/dynamodb/) as it looks somewhat
-promising.
+This URL shortener was made to try out AWS Lambda and Dynamodb. I also used Vue instead of React for this project because I wanted to give it a shot. Finally, I wrote a small Golang http service that translates the slug (/asdf) into the correct URL. In hindsight, serverless functions were probably not the best fit for this project because the functions ususally take some time to "warm up" which adds latency to the request.
 
 ## Features (possibly)
 
-- [ ] Intuitive UI
-- [ ] Convert URL to `{domain}/[a-zA-Z]{6}`
+- [x] Intuitive UI
+- [x] Convert URL to `{domain}/[a-zA-Z]{5}`
 - [ ] URL analytics
 - [ ] Account system
 - [ ] Pay for custom URL ([Stripe](https://stripe.com/docs/js)?)
